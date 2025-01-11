@@ -7,6 +7,7 @@ Additionaly it is possible to add every task also not related to the post-proces
 # Content
 
 - [ ] Possibly eliminate rows that have an high *jitter* but *duration* zero. (15.5 ms is not that much at all)
+- [ ] Eliminate IP and PORT attributes (src and dest) from the dataset
 
 # Done
 
