@@ -13,8 +13,7 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [ ] Analize Stime and Ltime in features selection phase using correlation matrix.
 - [ ] Substitute '-' with 'Missing' in the preprocessing phase for the 'service' column.
 - [ ] Substitute missing value with 0 in the preprocessing phase for the 'ct_flw_http_mthd' column.
-- [ ] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login' column when the service is not ftp_data and ftp.
-- [ ] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login' column when the service is 'ftp_data' and maybe eliminate the row with missing value for 'is_ftp_login' when the service is 'ftp'.
+- [ ] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login'.
 
 # Done
 
