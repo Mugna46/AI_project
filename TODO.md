@@ -10,6 +10,11 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [ ] Eliminate IP and PORT attributes (src and dest) from the dataset.
 - [ ] Use SMOTE to undersample *Normal* packets and oversample *Malicious* one, to make the dataset balanced.
 - [ ] Keep the dataset unbalance and use *model* and *metrics* for unbalanced datasets.
+- [ ] Analize Stime and Ltime in features selection phase using correlation matrix
+- [ ] Substitute '-' with 'Missing' in the preprocessing phase for the 'service' column.
+- [ ] Substitute missing value with 0 in the preprocessing phase for the 'ct_flw_http_mthd' column.
+- [ ] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login' column when the service is not ftp_data and ftp.
+- [ ] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login' column when the service is 'ftp_data' and maybe eliminate the row with missing value for 'is_ftp_login' when the service is 'ftp'.
 
 # Done
 
