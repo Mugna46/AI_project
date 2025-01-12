@@ -14,6 +14,7 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [ ] Substitute '-' with 'Missing' in the preprocessing phase for the 'service' column.
 - [ ] Substitute missing value with 0 in the preprocessing phase for the 'ct_flw_http_mthd' column.
 - [ ] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login'.
+- [ ] Trasform all value to integer and substitute missing value with 0 in the preprocessing phase for the 'ct_ftp_cmd' attribute
 
 # Done
 
