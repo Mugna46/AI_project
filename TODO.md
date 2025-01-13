@@ -10,6 +10,7 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [ ] Keep the dataset unbalance and use *model* and *metrics* for unbalanced datasets.
 - [ ] Analize Stime and Ltime in features selection phase using correlation matrix.
 - [ ] Use Decision tree Model (supervised classificator) to make a classification of the dataset.
+- [ ] Eliminate the attributes *is_ftp_login* because is redundant with *ct_ftp_cmd*. 
 # Done
 
 - [x] Create this TODO file.
