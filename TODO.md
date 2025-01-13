@@ -22,5 +22,5 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [-] Possibly eliminate rows that have an high *jitter* but *duration* zero. (15.5 ms is not that much at all)
 - [x] Substitute '-' with 'Missing' in the preprocessing phase for the 'service' column.
 - [x] Substitute missing value with 0 in the preprocessing phase for the 'ct_flw_http_mthd' column.
-- [x] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login' and other value to 1.
+- [-] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login' and other value to 1.
 - [x] Trasform all value to integer and substitute missing value with 0 in the preprocessing phase for the 'ct_ftp_cmd' attribute.
