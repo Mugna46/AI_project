@@ -9,7 +9,7 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [ ] Use SMOTE to undersample *Normal* packets and oversample *Malicious* one, to make the dataset balanced.
 - [ ] Keep the dataset unbalance and use *model* and *metrics* for unbalanced datasets.
 - [ ] Analize Stime and Ltime in features selection phase using correlation matrix.
-- [ ] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login' and check that the value is binary.
+- [ ] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login' and other value to 1.
 - [ ] Trasform all value to integer and substitute missing value with 0 in the preprocessing phase for the 'ct_ftp_cmd' attribute.
 
 # Done
