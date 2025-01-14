@@ -6,13 +6,10 @@ Additionaly it is possible to add every task also not related to the post-proces
 
 # Content
 
-- [ ] Use SMOTE to undersample *Normal* packets and oversample *Malicious* one, to make the dataset balanced.
 - [ ] Keep the dataset unbalance and use *model* and *metrics* for unbalanced datasets.
 - [ ] Analize Stime and Ltime in features selection phase using correlation matrix.
 - [ ] Use Decision tree Model (supervised classificator) to make a classification of the dataset.
-- [ ] Eliminate the attributes *is_ftp_login* because is redundant with *ct_ftp_cmd*. 
-- [ ] Use balanced dataset to train logistic regression model
-- [ ] Use correlation matrix to do feature selection
+- [ ] Use correlation matrix to do feature selection.
 # Done
 
 - [x] Create this TODO file.
@@ -26,3 +23,7 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [x] Substitute missing value with 0 in the preprocessing phase for the 'ct_flw_http_mthd' column.
 - [-] Substitute missing value with 0 in the preprocessing phase for the 'is_ftp_login' and other value to 1.
 - [x] Trasform all value to integer and substitute missing value with 0 in the preprocessing phase for the 'ct_ftp_cmd' attribute.
+- [x] Eliminate the attributes *is_ftp_login* because is redundant with *ct_ftp_cmd*. 
+- [x] Use Sampling to undersample *Normal* packets and oversample *Malicious* one, to make the dataset balanced.
+- [x] Use Logistic Regression as classifier.
+- [x] Use balanced dataset to train logistic regression model.
