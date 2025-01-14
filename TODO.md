@@ -11,6 +11,8 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [ ] Analize Stime and Ltime in features selection phase using correlation matrix.
 - [ ] Use Decision tree Model (supervised classificator) to make a classification of the dataset.
 - [ ] Eliminate the attributes *is_ftp_login* because is redundant with *ct_ftp_cmd*. 
+- [ ] Use balanced dataset to train logistic regression model
+- [ ] Use correlation matrix to do feature selection
 # Done
 
 - [x] Create this TODO file.
