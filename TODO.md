@@ -6,10 +6,9 @@ Additionaly it is possible to add every task also not related to the post-proces
 
 # Content
 
-- [ ] Keep the dataset unbalance and use *model* and *metrics* for unbalanced datasets.
-- [ ] Analize Stime and Ltime in features selection phase using correlation matrix.
-- [ ] Use Decision tree Model (supervised classificator) to make a classification of the dataset.
-- [ ] Use correlation matrix to do feature selection.
+- [ ] Use Random *Forest Model* for classification and use LIME with a *Decision Tree* to explain it.
+- [ ] Make a binary classificatio of the dataset.
+
 # Done
 
 - [x] Create this TODO file.
@@ -27,3 +26,9 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [x] Use Sampling to undersample *Normal* packets and oversample *Malicious* one, to make the dataset balanced.
 - [x] Use Logistic Regression as classifier.
 - [x] Use balanced dataset to train logistic regression model.
+- [x] Use correlation matrix to do feature selection.
+- [x] Analize Stime and Ltime in features selection phase using correlation matrix.
+- [x] Dataset is unbalance so use *model* and *metrics* for unbalanced datasets.
+- [-] Use Decision tree Model (supervised classificator) to make a classification of the dataset.
+- [x] Try another *Scaling* for data in order to increase performance of *Logistic Regression*.
+- [x] Try to not use dummies and instead use *frequency encoding* for feature selection.
