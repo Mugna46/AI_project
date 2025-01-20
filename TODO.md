@@ -32,3 +32,4 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [-] Use Decision tree Model (supervised classificator) to make a classification of the dataset.
 - [x] Try another *Scaling* for data in order to increase performance of *Logistic Regression*.
 - [x] Try to not use dummies and instead use *frequency encoding* for feature selection.
+- [x] Add performance metrics at the end of *Cross Validation*
