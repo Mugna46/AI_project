@@ -140,7 +140,40 @@
         \vspace{2ex}
         Analysing the attributes \texttt{is\_ftp\_login}, \texttt{ct\_ftp\_cmd} we notice that they are equals in number, in values and in raws.  
         Probably one of them is wrong, even if not anyway the attributes together are redundant.
+        \vspace{2ex}\\
+        So we filled with \emph{"missing"} the \texttt{service} attribute and we filled with \emph{0} \texttt{ct\_ftp\_cmd} and \texttt{ct\_flw\_http\_mthd}.
 \end{frame}
+
+\begin{frame}{Feature Selection}
+    First we removed the following columns:
+    \begin{itemize}
+        \item Source and Destination IP addresses (\texttt{srcip, dstip}).
+        \item Source and Destination Port (\texttt{sport, dsport}).
+        \item \texttt{is\_ftp\_login}
+    \end{itemize}
+    We dropped the duplicates. Then we adopted two different feature selection:
+    \begin{itemize}
+        \item \textbf{Logistic Regression}: we removed the features that have a correlation higher than 0.8.
+        \item \textbf{Random Forest}: we used a \textbf{Decision Tree} model to estimate the coefficient of the most important feature for constructing the tree. We dropped the others.  
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Feature Selection}
+    \vspace{2ex}
+    \hspace*{-0.8cm}
+    \begin{minipage}[t]{0.45\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{Correlation_matrix.png}
+        \captionof{figure}{Correlation matrix}
+    \end{minipage}
+    \fill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=1.5\textwidth]{DT_features_importance.png}
+        \captionof{figure}{Feature importance for Decision Tree}
+    \end{minipage}
+\end{frame}
+
 
 \begin{frame}{Architecture}
     \begin{center}
