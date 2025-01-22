@@ -61,52 +61,51 @@
 \end{frame}
 
 \begin{frame}{Category Distribution}
-        \footnotesize The dataset is highly unbalanced, with the majority of the samples belonging to the \textbf{Normal} class.
+        \centering
+        \footnotesize The dataset is highly unbalanced, with the majority of the samples \\
+        belonging to the \textbf{Normal} class.
     \begin{center}
-        \hspace*{-0.8cm}
+        \hspace*{-1.5cm}
         \begin{minipage}[t][6cm][t]{0.5\textwidth}
             \centering
             \vspace{-0.08cm}
-            \fbox{ % Adds a border around the table
-                \resizebox{1.2\textwidth}{!}{%
-                    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
-                        \hline
-                        \textbf{Normal} & \textbf{Generic} & \textbf{Exploits} & \textbf{Fuzzers} & \textbf{Reconnaissance} & \textbf{DoS} & \textbf{Backdoor} & \textbf{Analysis} & \textbf{Shellcode} & \textbf{Worms} \\
-                        \hline
-                        281,462 & 6,894 & 6,851 & 4,970 & 3,420 & 1,465 & 623 & 621 & 371 & 42 \\
-                        \hline
-                    \end{tabular}
-                }
+            \resizebox{1.2\textwidth}{!}{
+                \begin{table}[]
+                \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+                \hline
+                \textbf{Normal}               & \textbf{Generic}           & \textbf{Exploits}          & \textbf{Fuzzers}           & \textbf{Reconnaissance}    & \textbf{DoS}               & \textbf{Backdoor}        & \textbf{Analysis}        & \textbf{Shellcode}       & \textbf{Worms}
+                \\ \hline
+                \multicolumn{1}{|c|}{281,462} & \multicolumn{1}{c|}{6,894} & \multicolumn{1}{c|}{6,851} & \multicolumn{1}{c|}{4,970} & \multicolumn{1}{c|}{3,420} & \multicolumn{1}{c|}{1,465} & \multicolumn{1}{c|}{623} & \multicolumn{1}{c|}{621} & \multicolumn{1}{c|}{371} & \multicolumn{1}{c|}{42}
+                \\ \hline
+                \end{tabular}
+                \end{table}
+                \caption{Counts for each attack category.}
+                \label{tab:inverted_attack_categories}
             }
-            \caption{Counts for each attack category.}
-            \label{tab:inverted_attack_categories}
-
             \includegraphics[width=\textwidth, height=5cm, keepaspectratio]{attack_cat_before.png} \\
             \textit{Original Dataset \emph{attack category} distribution}
         \end{minipage} 
-        \hfill
-        \begin{minipage}[t]{0.45\textwidth}
+        \hspace{0.8cm}
+        \begin{minipage}[t][6cm][t]{0.5\textwidth}
             \centering
-            \vspace{-0.01cm}
-            \fbox{ % Adds a border around the table
-                \resizebox{0.7\textwidth}{!}{%
-                    \begin{tabular}{|l|l|l|l|l|l|}
-                        \hline
-                        \textbf{Normal} & \textbf{Probe} & \textbf{R2L} & \textbf{DoS} & \textbf{U2R} \\
-                        \hline
-                        281,462 & 15,284 & 7,472 & 1,507 & 994 \\
-                        \hline
-                    \end{tabular}
-                }
+            \vspace{-0.08cm}
+            \resizebox{0.5\textwidth}{!}{
+                \begin{table}[]
+                \begin{tabular}{|l|l|l|l|l|}
+                \hline
+                \textbf{Normal}               & \textbf{Probe}           & \textbf{R2L}          & \textbf{DoS}           & \textbf{U2R}
+                \\ \hline
+                \multicolumn{1}{|c|}{281,462} & \multicolumn{1}{c|}{15,284} & \multicolumn{1}{c|}{7,472} & \multicolumn{1}{c|}{1,507} & \multicolumn{1}{c|}{994}
+                \\ \hline
+                \end{tabular}
+                \end{table}
+                \caption{Counts for each attack category.}
+                \label{tab:inverted_attack_categories}
             }
-            \caption{Counts for each attack category.}
-            \label{tab:inverted_attack_categories}
-            \includegraphics[width=\textwidth, height=4.5cm, keepaspectratio]{attack_cat_after.png} \\
+            \includegraphics[width=\textwidth, height=4.2cm, keepaspectratio]{attack_cat_after.png} \\
             \textit{Our Dataset \emph{attack category} distribution}
-            
         \end{minipage}
         \hspace*{-1cm}
-        
     \end{center}
 \end{frame}
 
@@ -164,13 +163,14 @@
     \begin{minipage}[t]{0.45\textwidth} 
         \centering
         \includegraphics[width=\textwidth]{Correlation_matrix.png}
-        \captionof{figure}{Correlation matrix}
+        \hspace{-1cm}
+        \hspace{20cm}\subcaption{\textbf{Figure 1:} Correlation matrix}
     \end{minipage}
-    \fill
+    \hspace{0.5cm}
     \begin{minipage}[t]{0.45\textwidth}
         \centering
-        \includegraphics[width=1.5\textwidth]{DT_features_importance.png}
-        \captionof{figure}{Feature importance for Decision Tree}
+        \includegraphics[width=1.4\textwidth]{DT_features_importance.png}
+        \hspace{20cm}\subcaption{\textbf{Figure 2:} Feature importance for Decision Tree}
     \end{minipage}
 \end{frame}
 
