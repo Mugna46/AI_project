@@ -75,7 +75,7 @@
                 \hline
                 \textbf{Normal}               & \textbf{Generic}           & \textbf{Exploits}          & \textbf{Fuzzers}           & \textbf{Reconnaissance}    & \textbf{DoS}               & \textbf{Backdoor}        & \textbf{Analysis}        & \textbf{Shellcode}       & \textbf{Worms}
                 \\ \hline
-                \multicolumn{1}{|c|}{281,462} & \multicolumn{1}{c|}{6,894} & \multicolumn{1}{c|}{6,851} & \multicolumn{1}{c|}{4,970} & \multicolumn{1}{c|}{3,420} & \multicolumn{1}{c|}{1,465} & \multicolumn{1}{c|}{623} & \multicolumn{1}{c|}{621} & \multicolumn{1}{c|}{371} & \multicolumn{1}{c|}{42}
+                \multicolumn{1}{|c|}{281462} & \multicolumn{1}{c|}{6894} & \multicolumn{1}{c|}{6851} & \multicolumn{1}{c|}{4970} & \multicolumn{1}{c|}{3420} & \multicolumn{1}{c|}{1465} & \multicolumn{1}{c|}{623} & \multicolumn{1}{c|}{621} & \multicolumn{1}{c|}{371} & \multicolumn{1}{c|}{42}
                 \\ \hline
                 \end{tabular}
                 \end{table}
@@ -95,7 +95,7 @@
                 \hline
                 \textbf{Normal}               & \textbf{Probe}           & \textbf{R2L}          & \textbf{DoS}           & \textbf{U2R}
                 \\ \hline
-                \multicolumn{1}{|c|}{281,462} & \multicolumn{1}{c|}{15,284} & \multicolumn{1}{c|}{7,472} & \multicolumn{1}{c|}{1,507} & \multicolumn{1}{c|}{994}
+                \multicolumn{1}{|c|}{281462} & \multicolumn{1}{c|}{15284} & \multicolumn{1}{c|}{7472} & \multicolumn{1}{c|}{1507} & \multicolumn{1}{c|}{994}
                 \\ \hline
                 \end{tabular}
                 \end{table}
@@ -173,6 +173,31 @@
         \hspace{20cm}\subcaption{\textbf{Figure 2:} Feature importance for Decision Tree}
     \end{minipage}
 \end{frame}
+
+\begin{frame}{Rebalancing}
+    \small As shown before the dataset is highly unbalanced with respect to the \texttt{Normal} class. 
+    \vspace{-0.1cm}
+        \begin{table}[t]
+            \resizebox {0.35\textwidth}{!}{
+            \begin{tabular}{|l|l|l|l|l|}
+                \hline
+                \textbf{Normal}               & \textbf{Probe}           & \textbf{R2L}          & \textbf{DoS}           & \textbf{U2R}
+                \\ \hline
+                \multicolumn{1}{|c|}{281462} & \multicolumn{1}{c|}{15284} & \multicolumn{1}{c|}{7472} & \multicolumn{1}{c|}{1507} & \multicolumn{1}{c|}{994}
+                \\ \hline
+            \end{tabular}
+            }
+        \end{table}
+        \vspace{-0.1cm}
+        \small To minimize excessive transformations of the dataset, we first applied \emph{undersampling} to the majority class, followed by \emph{oversampling} of the others. Additionally, \emph{Stratified Cross Validation} was performed as follows:
+    \begin{itemize}
+        \item Data trasformation of nominal data with \emph{OneHotEncoding} (using \texttt{get\_dummies}).
+        \item Performs Stratified Cross Validation with \emph{StratifiedKFold} with \emph{k = 10}.
+        \item Split the dataset in training and test set.
+        \item Apply the \texttt{RandomUnderSampler} to reduce the \emph{Normal} class to 100000 samples.
+        \item Only then apply \texttt{SMOTE} to balance the dataset.
+    \end{itemize}
+    \end{frame}
 
 
 \begin{frame}{Architecture}
