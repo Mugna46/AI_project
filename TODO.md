@@ -6,8 +6,8 @@ Additionaly it is possible to add every task also not related to the post-proces
 
 # Content
 
-- [ ] Use Random *Forest Model* for classification and use LIME with a *Decision Tree* to explain it.
-- [ ] Make a binary classificatio of the dataset.
+- [ ] Use AUC ROC curve to compare **Logistic Regression** and **Random Forest** 
+- [ ] **Finish the report**
 
 # Done
 
@@ -33,3 +33,5 @@ Additionaly it is possible to add every task also not related to the post-proces
 - [x] Try another *Scaling* for data in order to increase performance of *Logistic Regression*.
 - [x] Try to not use dummies and instead use *frequency encoding* for feature selection.
 - [x] Add performance metrics at the end of *Cross Validation*
+- [x] Use Random *Forest Model* for classification and use LIME with a *Decision Tree* to explain it.
+- [x] Make a binary classificatio of the dataset.
