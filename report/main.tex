@@ -112,48 +112,48 @@
 \begin{frame}{Identify Missing and Erroneus Values }
         \scriptsize 
         We identified 49 features in the dataset, 42 of which are numerical and 7 are categorical.
-        The Dataset contained missing values: 
+        The Dataset contains the following missing values: 
         \begin{table}[]
             \centering
             \resizebox{0.5\textwidth}{!}{%
                 \begin{tabular}{|l|l|l|l|l|}
                 \hline
                                & ct\_flw\_http\_mthd & is\_ftp\_login & service & ct\_ftp\_cmd\\ \hline
-                Missing Values & 273700              & 300350         & 167857 & 300350 \\ \hline
+                \textbf{Missing Values} & 273700              & 300350         & 167857 & 300350 \\ \hline
                 \end{tabular}%
             }
         \end{table}        
-        The \emph{attributes }\texttt{ct\_flw\_http\_mthd} indicates how many \emph{HTTP} method are present is correlated with 
-        the value \textt{http} in \texttt{service} but we found a discrepancy:
+        \emph{Attribute}\texttt{ct\_flw\_http\_mthd}, that indicates how many \emph{HTTP} method are present, is correlated with 
+        the value \textt{http} in \emph{attribute} \texttt{service}; but we found a discrepancy:
         \begin{table}[]
             \centering
             \resizebox{0.4\textwidth}{!}{%
                 \begin{tabular}{|l|l|l|l|}
                 \hline
                                & ct\_flw\_http\_mthd & service 'http' \\ \hline
-                Count Values & 33019             & 32777  \\ \hline
+                \textbf{Count Values} & 33019             & 32777  \\ \hline
                 \end{tabular}%
             }
         \end{table}
-        This means that the differences '242' that are signed as missing in \texttt{service} can be set to \texttt{http}.  \\
+        This means that the difference '242' that are signed as missing in \texttt{service} can be set to \texttt{http}.  \\
         \vspace{2ex}
         Analysing the attributes \texttt{is\_ftp\_login}, \texttt{ct\_ftp\_cmd} we notice that they are equals in number, in values and in raws.  
         Probably one of them is wrong, even if not anyway the attributes together are redundant.
         \vspace{2ex}\\
-        So we filled with \emph{"missing"} the \texttt{service} attribute and we filled with \emph{0} \texttt{ct\_ftp\_cmd} and \texttt{ct\_flw\_http\_mthd}.
+        So in the \emph{pre-processing} phase we filled with \emph{"missing"} the \texttt{service} attribute and we filled with \emph{0} \texttt{ct\_ftp\_cmd} and \texttt{ct\_flw\_http\_mthd}.
 \end{frame}
 
 \begin{frame}{Feature Selection}
     First we removed the following columns:
     \begin{itemize}
         \item Source and Destination IP addresses (\texttt{srcip, dstip}).
-        \item Source and Destination Port (\texttt{sport, dsport}).
+        \item Source and Destination Ports (\texttt{sport, dsport}).
         \item \texttt{is\_ftp\_login}.
     \end{itemize}
     We dropped the duplicates. Then we adopted two different feature selection methods:
     \begin{itemize}
         \item \textbf{Logistic Regression}: We eliminated the features with a correlation higher than 0.8 among them.
-        \item \textbf{Random Forest}: We used a \textbf{Decision Tree} model to estimate the coefficient of the most important feature for constructing the tree. We dropped the others.
+        \item \textbf{Random Forest}: We used a \textbf{Decision Tree} model to estimate the coefficient of the most important features for constructing the tree. We dropped the others.
     \end{itemize}
 \end{frame}
 
@@ -164,13 +164,13 @@
         \centering
         \includegraphics[width=\textwidth]{Correlation_matrix.png}
         \hspace{-1cm}
-        \hspace{20cm}\subcaption{\textbf{Figure 1:} Correlation matrix}
+        \hspace{20cm}\subcaption{Correlation matrix}
     \end{minipage}
     \hspace{0.5cm}
     \begin{minipage}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=1.4\textwidth]{DT_features_importance.png}
-        \hspace{20cm}\subcaption{\textbf{Figure 2:} Feature importance for Decision Tree}
+        \hspace{20cm}\subcaption{Feature importance for Decision Tree}
     \end{minipage}
 \end{frame}
 
@@ -189,7 +189,7 @@
             }
         \end{table}
         \vspace{-0.1cm}
-        \small To minimize excessive transformations of the dataset, we first applied \emph{undersampling} to the majority class, followed by \emph{oversampling} of the others. Additionally, \emph{Stratified Cross Validation} was performed as follows:
+        \small To minimize excessive transformations of the dataset, we first applied \emph{undersampling} to the majority class, followed by \emph{oversampling} of the others. Additionally, \emph{Stratified Cross Validation} was performed. The following steps were taken:
     \begin{itemize}
         \item Data trasformation of nominal data with \emph{OneHotEncoding} (using \texttt{get\_dummies}).
         \item Performs Stratified Cross Validation with \emph{StratifiedKFold} with \emph{k = 10}.
@@ -219,30 +219,33 @@
         \begin{itemize}
         \setlength\itemsep{-0.3em}
             \item Implemented only for multi-class classification problem.
-            \item The result is quite good.
+            \item The result is quite better than Logistic Regression.
             \item We employed LIME (Local Interpretable Model-agnostic Explanations) to interpret model decisions.
         \end{itemize}
     \end{columns}
 \end{frame}
 
 \begin{frame}{Logistic Regression}
-        - Set the maximum number of iterations to 1000. \\
+    \begin{center}
+        \textbf{Main Parameters:} 
+        Max number of iterations \texttt{1000}; solver \texttt{lbfgs}. \\
+    \end{center}    
         - Unbalanced dataset. \\
         - Cross-validation with a balanced training dataset. \\
         - Experimented with frequency encoding resulting in a faster model.
         \vspace{0.2cm}
     \begin{table}[]
-        \begin{tabular}{l|l|ll|}
-        \cline{2-4}
-            & \multicolumn{1}{c|}{\multirow{2}{*}{Unbalanace}} & \multicolumn{2}{c|}{Balance}                             \\ \cline{3-4}
+        \begin{tabular}{|l|l|ll|}
+        \hline
+            & \multicolumn{1}{c|}{\multirow{2}{*}{Unbalance}} & \multicolumn{2}{c|}{Balance}                             \\ \cline{3-4}
             & \multicolumn{1}{c|}{}                            & \multicolumn{1}{l|}{OneHotEncoding} & Frequency Encoding \\ \hline
-            \multicolumn{1}{|l|}{\textbf{Precision}} & 0.49                                             & \multicolumn{1}{l|}{0.49}           & 0.49               \\ \hline
-            \multicolumn{1}{|l|}{\textbf{Recall}}    & 0.49                                             & \multicolumn{1}{l|}{0.61}           & 0.65               \\ \hline
-            \multicolumn{1}{|l|}{\textbf{F1-score}}  & 0.48                                             & \multicolumn{1}{l|}{0.51}           & 0.51               \\ \hline
+            \multicolumn{1}{|l|}{\textbf{Precision}} & 0.491                                             & \multicolumn{1}{l|}{0.495}           & 0.492               \\ \hline
+            \multicolumn{1}{|l|}{\textbf{Recall}}    & 0.493                                             & \multicolumn{1}{l|}{0.614}           & 0.645               \\ \hline
+            \multicolumn{1}{|l|}{\textbf{F1-score}}  & 0.480                                            & \multicolumn{1}{l|}{0.511}           & 0.513               \\ \hline
         \end{tabular}
         \\
         \vspace{0.4cm}
-        These approaches did yield poor improvement in performance.
+        These approaches did yield poor improvement in \texttt{macro avg} performance.
     \end{table}
 \end{frame}
 
@@ -257,7 +260,7 @@
             \centering
             \includegraphics[width=\textwidth]{confusion_matrix_LR.png}
             \hspace{-1cm}
-            \hspace{20cm}\subcaption{\small{Fold one for OHE with balanced dataset.}}
+            \hspace{20cm}\subcaption{\small{Fold one for \texttt{OHE} with balanced dataset.}}
         \end{minipage}
 
         \column{0.48\textwidth}
@@ -266,7 +269,7 @@
         \vspace{0.2cm}
         \begin{itemize}
         \setlength\itemsep{0.5em}
-            \item '1' represents an attack and '0' represents normal traffic.
+            \item \emph{'1'} represents an attack and \emph{'0'} represents normal traffic.
             \item The results have improved significantly, as we expected.
         \end{itemize}
         \vspace{0.2cm}
@@ -291,7 +294,8 @@
         \vspace{0.5cm}
             \begin{columns}[T]
             \column{0.44\textwidth}
-            \textbf{Macro Performance:}
+            \centering
+            \textbf{Macro avg Performance:}
             \vspace{0.2cm}
             \begin{table}[]
             \resizebox{0.8\columnwidth}{!}{
@@ -304,15 +308,16 @@
             }
             \end{table}
             \column{0.56\textwidth}
+            \centering
             \textbf{First Fold Performance:}
             \vspace{0.2cm}
             \begin{table}[]
             \resizebox{0.8\columnwidth}{!}{
-                \begin{tabular}{l|l|l|l|}
-                \cline{2-4}
+                \begin{tabular}{|l|l|l|l|}
+                \hline
                 & \multicolumn{1}{c|}{\textbf{Precision}} & \multicolumn{1}{c|}{\textbf{Recall}} & \multicolumn{1}{c|}{\textbf{F1-score}} \\ \hline
-                \multicolumn{1}{|l|}{DoS}    & 0.208                                   & 0.167                                & 0.185                                  \\ \hline
                 \multicolumn{1}{|l|}{Normal} & 0.998                                   & 0.984                                & 0.991                                  \\ \hline
+                \multicolumn{1}{|l|}{DoS}    & 0.208                                   & 0.167                                & 0.185                                  \\ \hline
                 \multicolumn{1}{|l|}{Probe}  & 0.724                                   & 0.887                                & 0.797                                  \\ \hline
                 \multicolumn{1}{|l|}{R2L}    & 0.727                                   & 0.809                                & 0.766                                  \\ \hline
                 \multicolumn{1}{|l|}{U2R}    & 0.218                                   & 0.340                                & 0.266                                  \\ \hline
@@ -339,10 +344,32 @@
     \end{minipage}
 \end{frame}
 
-\begin{frame}{Database - ER diagram details}
-    The \emph{N-to-N} relationship between \textbf{Player} and \textbf{Gacha} will be implemented with the table \textbf{Player\_Gacha}. The \textbf{Player\_Auction} table expresses the \emph{N-to-N} relationship between \textbf{Player} and \textbf{Auction}. When a player wins an auction and pays the gacha, a transaction record will be created. \\[1ex]
-    Each auction is created by one player (i.e. \emph{create} relationship) and it will contain a reference to a transaction record when the winning player pays the bid. For \textbf{Transaction} records, we store the creation datetime. \\[1ex]
-    The gacha's rarities are stored inside \textbf{Rarity} table and each gacha maintains a reference to a specific rarity.
+\begin{frame}{Conclusions}
+    Comparing the two models, we can see that the \textbf{Random Forest} has \texttt{macro average} metrics better then \textbf{Logistic Regression} model. \\
+    \begin{table}[]
+        \resizebox{0.7\columnwidth}{!}{
+            \begin{tabular}{|l|l|l|l|}
+                \hline
+                                             & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\ \hline
+                \textbf{Logistic Regression} & 0.495              & 0.614           & 0.511             \\ \hline
+                \textbf{Random Forest}       & 0.565              & 0.628           & 0.590             \\ \hline
+            \end{tabular}
+        }
+        \end{table}
+        \begin{itemize}
+            \item Since Logistic Regression requires a larger sample size to perform well. The limited occurrences of the \texttt{DoS} and \texttt{U2R} classes are insufficient to effectively train the model.
+            \item Both models does not perform well on the \texttt{DoS} and \texttt{U2R} classes, that influence the \texttt{macro avg} metrics negatively.
+            \item Dataset seems instead good for a binary classification problem.
+        \end{itemize}
+\end{frame}
+
+\begin{frame}{Next Step Acknowledgements}
+    \begin{itemize}
+        \item \textbf{Improve the dataset:} We could try to add to the dataset additional samples for \emph{Minority class}. Extracting them from other datasets.
+        \item \textbf{Hyperparameter tuning:} We could try to improve the model performance by tuning the hyperparameters.
+        \item \textbf{Categorical feature handling:} We have applied One-Hot Encoding and Frequency Encoding for categorical features so far. Exploring alternative methods like Ordinal Encoding or Target Encoding might yield better results.
+    \end{itemize}
+    Since the results obtained were suboptimal, we believe the main issue lies with the dataset itself. Adding new samples for the \emph{Minority classes} could help address the imbalance and resolve the challenges we encountered. 
 \end{frame}
 
 \begin{frame}{References}
