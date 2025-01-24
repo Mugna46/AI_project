@@ -7,7 +7,7 @@
 \usepackage{appendixnumberbeamer}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{hyperref}
-
+\usepackage{multirow}
 \setbeamercolor{background canvas}{bg=white}
 
 \usepackage{booktabs}
@@ -148,12 +148,12 @@
     \begin{itemize}
         \item Source and Destination IP addresses (\texttt{srcip, dstip}).
         \item Source and Destination Port (\texttt{sport, dsport}).
-        \item \texttt{is\_ftp\_login}
+        \item \texttt{is\_ftp\_login}.
     \end{itemize}
-    We dropped the duplicates. Then we adopted two different feature selection:
+    We dropped the duplicates. Then we adopted two different feature selection methods:
     \begin{itemize}
-        \item \textbf{Logistic Regression}: we removed the features that have a correlation higher than 0.8.
-        \item \textbf{Random Forest}: we used a \textbf{Decision Tree} model to estimate the coefficient of the most important feature for constructing the tree. We dropped the others.  
+        \item \textbf{Logistic Regression}: We eliminated the features with a correlation higher than 0.8 among them.
+        \item \textbf{Random Forest}: We used a \textbf{Decision Tree} model to estimate the coefficient of the most important feature for constructing the tree. We dropped the others.
     \end{itemize}
 \end{frame}
 
@@ -174,7 +174,7 @@
     \end{minipage}
 \end{frame}
 
-\begin{frame}{Rebalancing}
+\begin{frame}{Data Preparation}
     \small As shown before the dataset is highly unbalanced with respect to the \texttt{Normal} class. 
     \vspace{-0.1cm}
         \begin{table}[t]
@@ -193,17 +193,150 @@
     \begin{itemize}
         \item Data trasformation of nominal data with \emph{OneHotEncoding} (using \texttt{get\_dummies}).
         \item Performs Stratified Cross Validation with \emph{StratifiedKFold} with \emph{k = 10}.
-        \item Split the dataset in training and test set.
+        \item Split the dataset in training and test set to rebalancing only the first one, so
         \item Apply the \texttt{RandomUnderSampler} to reduce the \emph{Normal} class to 100000 samples.
-        \item Only then apply \texttt{SMOTE} to balance the dataset.
+        \item Only then apply \texttt{SMOTE} to balance the training set.
     \end{itemize}
-    \end{frame}
+\end{frame}
 
+\begin{frame}{Data Processing}
+    \centering
+    \small Two types of models were utilized for the data processing task:
+    \vspace{0.4cm}
 
-\begin{frame}{Architecture}
-    \begin{center}
-        \includegraphics[scale=.65]{architecture-v1.png}
-    \end{center}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \textbf{Logistic Regression}
+        \begin{itemize}
+        \setlength\itemsep{-0.3em}
+            \item Initially implemented for the \emph{multi-class} classification problem.
+            \item Performance was suboptimal, especially for \texttt{DoS} and \texttt{U2R} attacks, due to limitations in recognizing minority classes.
+            \item We attempted to use the model for binary classification.
+        \end{itemize}
+
+        \column{0.48\textwidth}
+        \textbf{Random Forest}
+        \begin{itemize}
+        \setlength\itemsep{-0.3em}
+            \item Implemented only for multi-class classification problem.
+            \item The result is quite good.
+            \item We employed LIME (Local Interpretable Model-agnostic Explanations) to interpret model decisions.
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Logistic Regression}
+        - Set the maximum number of iterations to 1000. \\
+        - Unbalanced dataset. \\
+        - Cross-validation with a balanced training dataset. \\
+        - Experimented with frequency encoding resulting in a faster model.
+        \vspace{0.2cm}
+    \begin{table}[]
+        \begin{tabular}{l|l|ll|}
+        \cline{2-4}
+            & \multicolumn{1}{c|}{\multirow{2}{*}{Unbalanace}} & \multicolumn{2}{c|}{Balance}                             \\ \cline{3-4}
+            & \multicolumn{1}{c|}{}                            & \multicolumn{1}{l|}{OneHotEncoding} & Frequency Encoding \\ \hline
+            \multicolumn{1}{|l|}{\textbf{Precision}} & 0.49                                             & \multicolumn{1}{l|}{0.49}           & 0.49               \\ \hline
+            \multicolumn{1}{|l|}{\textbf{Recall}}    & 0.49                                             & \multicolumn{1}{l|}{0.61}           & 0.65               \\ \hline
+            \multicolumn{1}{|l|}{\textbf{F1-score}}  & 0.48                                             & \multicolumn{1}{l|}{0.51}           & 0.51               \\ \hline
+        \end{tabular}
+        \\
+        \vspace{0.4cm}
+        These approaches did yield poor improvement in performance.
+    \end{table}
+\end{frame}
+
+\begin{frame}{Logistic Regression}
+    \vspace{0.2cm}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \small{A confusion matrix example for a cross-validation fold.}
+        \\
+        \vspace{0.3cm}
+        \begin{minipage}[t]{1\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{confusion_matrix_LR.png}
+            \hspace{-1cm}
+            \hspace{20cm}\subcaption{\small{Fold one for OHE with balanced dataset.}}
+        \end{minipage}
+
+        \column{0.48\textwidth}
+        \centering
+        \textbf{Binomial Logistic Regression}
+        \vspace{0.2cm}
+        \begin{itemize}
+        \setlength\itemsep{0.5em}
+            \item '1' represents an attack and '0' represents normal traffic.
+            \item The results have improved significantly, as we expected.
+        \end{itemize}
+        \vspace{0.2cm}
+        \begin{table}[]
+            \begin{tabular}{|l|l|l|}
+            \hline
+            \multicolumn{1}{|c|}{\textbf{Precision}} & \multicolumn{1}{c|}{\textbf{Recall}} & \multicolumn{1}{c|}{\textbf{F1-score}} \\ \hline
+            0.885                                    & 0.985                                & 0.928                                             \\ \hline
+            \end{tabular}
+        \end{table}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Random Forest}
+    \vspace{0.3cm}
+        By using this model, we have observed improvements in performance.\\
+        \vspace{0.2cm}
+        \textbf{Main Parameters:} \\
+        \vspace{0.1cm}
+        -- Number of Trees (n\_estimators): 100 \\
+        -- Splitting Criterion (default): Gini Index \\
+        \vspace{0.5cm}
+            \begin{columns}[T]
+            \column{0.44\textwidth}
+            \textbf{Macro Performance:}
+            \vspace{0.2cm}
+            \begin{table}[]
+            \resizebox{0.8\columnwidth}{!}{
+                \begin{tabular}{lll}
+                \hline
+                \multicolumn{1}{|c|}{\textbf{Precision}} & \multicolumn{1}{c|}{\textbf{Recall}} & \multicolumn{1}{c|}{\textbf{F1-score}} \\ \hline
+                \multicolumn{1}{|l|}{0.565}              & \multicolumn{1}{l|}{0.628}           & \multicolumn{1}{l|}{0.590}             \\ \hline
+                                         &                                      &
+                \end{tabular}
+            }
+            \end{table}
+            \column{0.56\textwidth}
+            \textbf{First Fold Performance:}
+            \vspace{0.2cm}
+            \begin{table}[]
+            \resizebox{0.8\columnwidth}{!}{
+                \begin{tabular}{l|l|l|l|}
+                \cline{2-4}
+                & \multicolumn{1}{c|}{\textbf{Precision}} & \multicolumn{1}{c|}{\textbf{Recall}} & \multicolumn{1}{c|}{\textbf{F1-score}} \\ \hline
+                \multicolumn{1}{|l|}{DoS}    & 0.208                                   & 0.167                                & 0.185                                  \\ \hline
+                \multicolumn{1}{|l|}{Normal} & 0.998                                   & 0.984                                & 0.991                                  \\ \hline
+                \multicolumn{1}{|l|}{Probe}  & 0.724                                   & 0.887                                & 0.797                                  \\ \hline
+                \multicolumn{1}{|l|}{R2L}    & 0.727                                   & 0.809                                & 0.766                                  \\ \hline
+                \multicolumn{1}{|l|}{U2R}    & 0.218                                   & 0.340                                & 0.266                                  \\ \hline
+                \end{tabular}
+            }
+            \end{table}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Random Forest}
+    \vspace{2ex}
+    \hspace*{-0.8cm}
+    \begin{minipage}[t]{0.40\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{confusion_matrx_RF.png}
+        \hspace{-1cm}
+        \hspace{20cm}\subcaption{\textbf{First Fold Confusion Matrix}}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=1.4\textwidth]{lime_result.png}
+        \hspace{20cm}\subcaption{\textbf{Lime Result}}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}{Database - ER diagram details}
